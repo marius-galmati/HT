@@ -1,0 +1,104 @@
+---
+import PageHero from '../PageHero.astro';
+import CtaBand from '../CtaBand.astro';
+import SectionHead from '../SectionHead.astro';
+import PhotoSlot from '../PhotoSlot.astro';
+
+interface Props { lang: 'ro' | 'en' }
+const { lang } = Astro.props;
+const ro = lang === 'ro';
+
+const t = ro ? {
+  eyebrow: 'Atelierul', title: 'Oameni, mașini și meserie',
+  sub: 'Hight Textiles este o manufactură din Cluj-Napoca, pornită în 2022, construită în jurul unei idei simple: clientul trebuie să poată vedea oricând unde și cine îi produce hainele.',
+  storyTitle: 'Povestea, pe scurt',
+  story1: 'Am pornit în 2022, într-o industrie în care multe fabrici lucrează ascunse în spatele intermediarilor. Am ales drumul invers: comunicare directă, uși deschise și proiecte pe care ni le asumăm de la primul tipar până la ultima piesă călcată.',
+  story2: 'Astăzi dezvoltăm și producem îmbrăcăminte la comandă pentru branduri, designeri și organizații din România, cu privirea îndreptată către clienții din întreaga Uniune Europeană care caută producție aproape de casă.',
+  craftTitle: 'Ce se întâmplă sub acoperișul nostru',
+  craft: [
+    ['Sala de croit', 'Aici tiparele devin piese: șpănuire, verificarea materialului, croire atentă — temelia oricărei serii reușite.'],
+    ['Liniile de cusut', 'Mașini de cusut și oameni care le stăpânesc: asamblare, tighele curate, finisaje care se văd la purtare.'],
+    ['Broderia', 'Însemne, monograme și personalizări — brodate durabil, nu lipite.'],
+    ['Controlul de calitate', 'Fiecare piesă este verificată înainte de ambalare: cusături, măsuri, accesorii, călcare.'],
+  ],
+  valuesTitle: 'În ce credem',
+  values: [
+    ['Transparență', 'Ușile atelierului sunt deschise clienților. Ce vezi este ce primești.'],
+    ['Cuvânt ținut', 'Termenul promis este termenul livrat. Ne măsurăm după fiecare comandă.'],
+    ['Respect pentru meserie', 'Confecția e meserie serioasă, făcută de oameni pricepuți, plătiți și tratați corect.'],
+    ['Creștere sănătoasă', 'Nu promitem ce nu putem livra. Creștem în ritmul în care putem păstra calitatea.'],
+  ],
+  visitTitle: 'Vino să vezi cu ochii tăi',
+  visitText: 'Cea mai bună dovadă este vizita: programează o întâlnire la atelier, adu-ți produsul sau ideea și discutăm concret, între mesele de croit.',
+  photoLabel: 'Fotografie din atelier · în curând',
+} : {
+  eyebrow: 'The atelier', title: 'People, machines and craft',
+  sub: 'Hight Textiles is a garment manufacture in Cluj-Napoca, Romania, started in 2022 and built around a simple idea: clients should always be able to see where and by whom their garments are made.',
+  storyTitle: 'The story, briefly',
+  story1: 'We started in 2022, in an industry where many factories work hidden behind intermediaries. We chose the opposite path: direct communication, open doors, and projects we own from the first pattern to the last pressed piece.',
+  story2: 'Today we develop and manufacture made-to-order clothing for brands, designers and organisations in Romania, looking towards clients across the European Union searching for production close to home.',
+  craftTitle: 'What happens under our roof',
+  craft: [
+    ['The cutting room', 'Patterns become pieces here: spreading, fabric inspection, careful cutting — the foundation of every successful run.'],
+    ['The sewing lines', 'Sewing machines and people who master them: assembly, clean stitching, finishes you can see when worn.'],
+    ['Embroidery', 'Insignia, monograms and personalisation — embroidered to last, not glued on.'],
+    ['Quality control', 'Every piece is inspected before packing: seams, measurements, trims, pressing.'],
+  ],
+  valuesTitle: 'What we believe in',
+  values: [
+    ['Transparency', 'The atelier doors are open to clients. What you see is what you get.'],
+    ['A kept word', 'The promised date is the delivered date. We measure ourselves on every order.'],
+    ['Respect for the craft', 'Garment making is serious work, done by skilled people, paid and treated fairly.'],
+    ['Healthy growth', 'We do not promise what we cannot deliver. We grow at the pace at which quality holds.'],
+  ],
+  visitTitle: 'Come and see for yourself',
+  visitText: 'The best proof is a visit: book a meeting at the atelier, bring your product or your idea, and let us talk specifics between the cutting tables.',
+  photoLabel: 'Atelier photography · coming soon',
+};
+---
+<PageHero eyebrow={t.eyebrow} title={t.title} sub={t.sub} />
+
+<section class="py-20">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-14 items-center">
+    <div>
+      <SectionHead eyebrow={t.storyTitle} title={ro ? 'Ușile deschise, din prima zi' : 'Open doors, from day one'} />
+      <p class="text-mist leading-relaxed mt-8 max-w-[56ch]" data-reveal>{t.story1}</p>
+      <p class="text-mist leading-relaxed mt-4 max-w-[56ch]" data-reveal>{t.story2}</p>
+    </div>
+    <div class="grid grid-cols-2 gap-4" data-reveal="zoom">
+      <PhotoSlot class="aspect-[3/4]" label={t.photoLabel} />
+      <PhotoSlot class="aspect-[3/4] mt-10" label="" mono={false} />
+    </div>
+  </div>
+</section>
+
+<section class="py-24 bg-panel border-y border-ivory/8">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+    <SectionHead eyebrow={t.craftTitle} title={ro ? 'Patru încăperi, un singur standard' : 'Four rooms, one standard'} />
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mt-12" data-stagger>
+      {t.craft.map(([p, s]) => (
+        <div class="card p-7">
+          <h3 class="font-display font-semibold tracking-wide text-ivory mb-3">{p}</h3>
+          <p class="text-sm text-mist leading-relaxed">{s}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="py-24">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10 grid lg:grid-cols-[1fr_1.3fr] gap-14 items-start">
+    <SectionHead eyebrow={t.valuesTitle} title={ro ? 'Valorile care ne conduc' : 'The values that guide us'} />
+    <div class="grid sm:grid-cols-2 gap-x-12 gap-y-9" data-stagger>
+      {t.values.map(([p, s]) => (
+        <div>
+          <div class="w-8 h-px bg-gold mb-4"></div>
+          <h3 class="font-display font-semibold tracking-wide text-ivory mb-2.5">{p}</h3>
+          <p class="text-sm text-mist leading-relaxed">{s}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<CtaBand lang={lang} title={t.visitTitle} text={t.visitText} />

@@ -1,0 +1,98 @@
+---
+import PageHero from '../PageHero.astro';
+import CtaBand from '../CtaBand.astro';
+import SectionHead from '../SectionHead.astro';
+import PhotoSlot from '../PhotoSlot.astro';
+
+interface Props { lang: 'ro' | 'en' }
+const { lang } = Astro.props;
+const ro = lang === 'ro';
+
+const t = ro ? {
+  eyebrow: 'Pentru branduri & designeri', title: 'Partenerul tehnic al colecției tale',
+  sub: 'Fabricile mari te refuză pentru cantități „prea mici". Atelierele improvizate îți schimbă calitatea de la o serie la alta. Noi existăm exact pentru golul dintre ele: serii mici și medii, executate constant, cu dezvoltare de produs sub același acoperiș.',
+  painsTitle: 'Știm de unde vii',
+  pains: [
+    ['Mostre care durează luni', 'La noi, dezvoltarea are calendar: știi de la început când vezi prima mostră și ce primești concret.'],
+    ['Calitate imprevizibilă', 'Seria se execută după mostra aprobată, iar fiecare piesă trece prin control de calitate. Ce ai aprobat este ce primești.'],
+    ['Comunicare prin intermediari', 'Vorbești direct cu atelierul care îți coase produsele. Întrebările primesc răspuns de la oamenii care țin lucrul în mână.'],
+    ['Bani blocați în stocuri', 'Serii pe măsura vânzărilor tale, cu posibilitatea de a repeta rapid produsele care se vând — în săptămâni, nu în sezoane.'],
+  ],
+  pathTitle: 'Drumul unei colecții la noi',
+  path: [
+    ['Discuția de pornire', 'Ne arăți colecția: schițe, mostre de referință, materiale dorite, cantități estimate.'],
+    ['Dezvoltarea plătită', 'Tipar, mostră, fișă tehnică — serviciu de sine stătător, cu preț fix pe model, dedus parțial din prima serie.'],
+    ['Seria-pilot', 'Prima producție de probă, verificată bucată cu bucată. Testul real înainte de scalare.'],
+    ['Producția pe colecții', 'Calendar rezervat de la un sezon la altul, prețuri stabile, reaprovizionare rapidă la produsele câștigătoare.'],
+  ],
+  noteTitle: 'Sinceritate comercială',
+  note: 'Lucrăm cu branduri care își tratează producția ca pe o investiție: dezvoltarea se plătește, seria pornește cu avans, iar termenele se stabilesc realist, în scris. În schimb, primești un partener care își ține cuvântul — și un produs de care să fii mândru.',
+  photoLabel: 'Fotografie din producție · în curând',
+} : {
+  eyebrow: 'For brands & designers', title: 'The technical partner behind your collection',
+  sub: 'Large factories turn you down for quantities that are "too small". Improvised workshops change quality from one run to the next. We exist precisely for the gap between them: small and medium series, executed consistently, with product development under one roof.',
+  painsTitle: 'We know where you are coming from',
+  pains: [
+    ['Samples that take months', 'Development here runs on a calendar: you know from the start when you will see the first sample and what exactly you receive.'],
+    ['Unpredictable quality', 'Production follows the approved sample, and every piece passes quality control. What you approved is what you get.'],
+    ['Communication through middlemen', 'You talk directly to the atelier sewing your garments. Questions are answered by the people doing the work.'],
+    ['Cash locked in inventory', 'Series sized to your sales, with fast restocks of winning products — in weeks, not seasons.'],
+  ],
+  pathTitle: 'How a collection travels through our atelier',
+  path: [
+    ['The starting conversation', 'Show us the collection: sketches, reference garments, preferred fabrics, estimated quantities.'],
+    ['Paid development', 'Pattern, sample, spec sheet — a standalone service with a fixed fee per style, partly deducted from your first run.'],
+    ['The pilot run', 'A first trial production, inspected piece by piece. The real test before scaling.'],
+    ['Collection-based production', 'Slots reserved from one season to the next, stable prices, quick restocks on bestsellers.'],
+  ],
+  noteTitle: 'Commercial honesty',
+  note: 'We work with brands that treat production as an investment: development is paid, runs start with a deposit, and lead times are set realistically, in writing. In return, you get a partner who keeps their word — and a product to be proud of.',
+  photoLabel: 'Production photography · coming soon',
+};
+---
+<PageHero eyebrow={t.eyebrow} title={t.title} sub={t.sub} />
+
+<section class="py-20">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+    <SectionHead eyebrow={t.painsTitle} title={ro ? 'Patru probleme pe care le rezolvăm' : 'Four problems we solve'} />
+    <div class="grid md:grid-cols-2 gap-5 mt-12" data-stagger>
+      {t.pains.map(([p, s]) => (
+        <div class="card p-8">
+          <h3 class="font-display font-semibold text-lg tracking-wide text-ivory mb-3">{p}</h3>
+          <p class="text-sm text-mist leading-relaxed">{s}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="py-24 bg-panel border-y border-ivory/8">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10 grid lg:grid-cols-[1.2fr_1fr] gap-14 items-center">
+    <div>
+      <SectionHead eyebrow={t.pathTitle} title={ro ? 'De la schiță la raftul tău' : 'From sketch to your shelf'} />
+      <div class="mt-10 space-y-8" data-stagger>
+        {t.path.map(([p, s], i) => (
+          <div class="flex gap-6">
+            <p class="font-display font-semibold gold-text text-xl w-10 shrink-0">{String(i + 1).padStart(2, '0')}</p>
+            <div>
+              <h3 class="font-display font-semibold tracking-wide text-ivory mb-1.5">{p}</h3>
+              <p class="text-sm text-mist leading-relaxed max-w-[52ch]">{s}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div data-reveal="zoom">
+      <PhotoSlot class="aspect-[3/4]" label={t.photoLabel} />
+    </div>
+  </div>
+</section>
+
+<section class="py-20">
+  <div class="max-w-[900px] mx-auto px-6 text-center" data-reveal>
+    <p class="eyebrow justify-center before:hidden mb-5">{t.noteTitle}</p>
+    <p class="font-accent italic text-[1.35rem] leading-relaxed text-ivory/90">{t.note}</p>
+  </div>
+</section>
+
+<CtaBand lang={lang} title={ro ? 'Pregătești o colecție?' : 'Preparing a collection?'} text={ro ? 'Colecțiile de sezon se contractează cu luni înainte — scrie-ne din timp și rezervăm calendarul împreună.' : 'Seasonal collections are booked months ahead — write to us early and we will reserve the calendar together.'} />

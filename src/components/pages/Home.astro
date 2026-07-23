@@ -1,0 +1,316 @@
+---
+import Monogram from '../Monogram.astro';
+import PhotoSlot from '../PhotoSlot.astro';
+import SectionHead from '../SectionHead.astro';
+
+interface Props { lang: 'ro' | 'en' }
+const { lang } = Astro.props;
+const ro = lang === 'ro';
+
+const t = ro ? {
+  heroEyebrow: 'Manufactură de confecții · Cluj-Napoca · România',
+  heroL1: 'De la idee,',
+  heroL2: 'la serie.',
+  heroSub: 'Dezvoltăm și producem îmbrăcăminte la comandă, în serii mici și medii — tipare, mostre, croit, cusut, broderie și control de calitate, sub același acoperiș, în Uniunea Europeană.',
+  heroCta1: 'Cere ofertă', heroCta1Href: '/contact',
+  heroCta2: 'Descoperă serviciile', heroCta2Href: '/servicii',
+  scroll: 'Derulează',
+  marquee: ['Dezvoltare de produs', 'Tipare', 'Mostre', 'Croit', 'Cusut', 'Broderie', 'Finisare', 'Control de calitate', 'Serii mici și medii', 'Producție în UE'],
+  manifestEyebrow: 'Manufactura',
+  manifestTitle: 'Fabricile mari refuză seriile mici. Noi aici începem.',
+  manifestP1: 'Hight Textiles este un atelier de producție din Cluj-Napoca, construit pentru clienții pe care industria mare îi ocolește: branduri care lansează colecții în sute de bucăți, nu în zeci de mii; designeri care au nevoie de un partener tehnic, nu doar de mașini de cusut; organizații care își vor echipele îmbrăcate impecabil.',
+  manifestP2: 'Lucrăm la comandă, cu comunicare directă între client și atelier — fără intermediari, fără promisiuni pe care nu le putem ține.',
+  facts: [['Din', '2022'], ['Atelier în', 'Cluj-Napoca'], ['Producție în', 'Uniunea Europeană']],
+  photoLabel: 'Fotografie din atelier · în curând',
+  servicesEyebrow: 'Serviciile noastre',
+  servicesTitle: 'Cinci pachete clare, de la primul desen la ultima livrare',
+  services: [
+    ['01', 'Dezvoltare de produs', 'Evaluare tehnică, tipar, mostră și fișă tehnică — transformăm ideea într-un produs care se poate fabrica în serie.'],
+    ['02', 'Serie-pilot', 'Prima producție de probă, verificată bucată cu bucată — testul înainte de scalare.'],
+    ['03', 'Program de uniforme', 'Uniforme personalizate cu broderie pentru echipe, cu mărimi reale și completări rapide pe parcursul anului.'],
+    ['04', 'Producție recurentă', 'Calendar de producție rezervat pentru colecțiile și comenzile regulate ale clienților constanți.'],
+    ['05', 'Producție completă', 'Cu materiale incluse: primești produsul finit, la cheie, fără grija aprovizionării.'],
+  ],
+  servicesCta: 'Toate detaliile serviciilor',
+  doorsEyebrow: 'Pentru cine producem',
+  doorBrandTitle: 'Branduri & designeri',
+  doorBrandText: 'Colecții în serii mici și medii, dezvoltate corect: mostre în săptămâni, execuție constantă, posibilitatea de a repeta rapid produsele care se vând.',
+  doorBrandList: ['Dezvoltare de produs și tipare', 'Mostre și serii-pilot', 'Producție pe colecții, cu calendar rezervat'],
+  doorBrandCta: 'Pentru branduri',
+  doorBrandHref: '/branduri',
+  doorUniTitle: 'Uniforme & echipamente de lucru',
+  doorUniText: 'Pentru hoteluri, clinici, restaurante, saloane și companii: uniforme croite pe echipa reală, cu broderie și completări rapide la fiecare angajare.',
+  doorUniList: ['Modele adaptate organizației', 'Broderie cu însemnele companiei', 'Contract cu prețuri stabile 12 luni'],
+  doorUniCta: 'Pentru organizații',
+  doorUniHref: '/uniforme',
+  processEyebrow: 'Cum lucrăm',
+  processTitle: 'Un drum limpede, fără surprize',
+  process: [
+    ['Discuția', 'Ne spui ce vrei să produci: schiță, mostră de referință sau doar ideea.'],
+    ['Evaluarea tehnică', 'Îți confirmăm ce se poate fabrica, în ce termen și cu ce materiale.'],
+    ['Tipar & mostră', 'Realizăm tiparul și mostra — o aprobi înainte de orice serie.'],
+    ['Oferta scrisă', 'Preț, termen și condiții clare, în scris. Fără ambiguități.'],
+    ['Producția & controlul', 'Croim, coasem, brodăm și verificăm fiecare piesă.'],
+    ['Livrarea & repetarea', 'Livrăm la termenul promis și programăm împreună comanda următoare.'],
+  ],
+  promiseEyebrow: 'Angajamentele noastre',
+  promiseTitle: 'Puține promisiuni. Ținute.',
+  promises: [
+    ['Comunicare directă', 'Vorbești cu oamenii care îți produc efectiv comanda, nu cu un lanț de intermediari.'],
+    ['Serii pe măsura ta', 'Producem cantitățile de care ai nevoie ca să crești sănătos — nu minimele impuse de fabricile mari.'],
+    ['Termene asumate în scris', 'Termenul din ofertă este termenul din calendar. Îl măsurăm la fiecare livrare.'],
+    ['Produs în Uniunea Europeană', 'Aproape de tine: vizitezi atelierul, primești mostrele în zile și reaprovizionezi în săptămâni.'],
+  ],
+  atelierEyebrow: 'Atelierul',
+  atelierTitle: 'Locul unde ideile devin haine',
+  atelierText: 'Mașini de cusut, mese de croit, broderie și oameni care își cunosc meseria. Îți deschidem ușa cu plăcere — vino să vezi unde și cine îți produce colecția.',
+  atelierCta: 'Cunoaște atelierul',
+  atelierHref: '/atelier',
+  ctaTitle: 'Pregătit să produci?',
+  ctaText: 'Scrie-ne despre proiectul tău — îți răspundem cu întrebările potrivite și pașii concreți.',
+  ctaBtn: 'Cere ofertă',
+  ctaHref: '/contact',
+} : {
+  heroEyebrow: 'Garment manufacturer · Cluj-Napoca · Romania (EU)',
+  heroL1: 'From idea,',
+  heroL2: 'to production.',
+  heroSub: 'We develop and manufacture made-to-order clothing in small and medium series — pattern making, sampling, cutting, sewing, embroidery and quality control, under one roof, in the European Union.',
+  heroCta1: 'Request a quote', heroCta1Href: '/en/contact',
+  heroCta2: 'Explore our services', heroCta2Href: '/en/services',
+  scroll: 'Scroll',
+  marquee: ['Product development', 'Pattern making', 'Sampling', 'Cutting', 'Sewing', 'Embroidery', 'Finishing', 'Quality control', 'Small & medium series', 'Made in the EU'],
+  manifestEyebrow: 'The manufacture',
+  manifestTitle: 'Big factories turn down small series. That is where we begin.',
+  manifestP1: 'Hight Textiles is a production atelier in Cluj-Napoca, Romania, built for the clients large industry overlooks: brands launching collections in hundreds of pieces, not tens of thousands; designers who need a technical partner, not just sewing machines; organisations that want their teams impeccably dressed.',
+  manifestP2: 'We work to order, with direct communication between client and atelier — no middlemen, no promises we cannot keep.',
+  facts: [['Since', '2022'], ['Atelier in', 'Cluj-Napoca'], ['Made in the', 'European Union']],
+  photoLabel: 'Atelier photography · coming soon',
+  servicesEyebrow: 'Our services',
+  servicesTitle: 'Five clear packages, from first sketch to final delivery',
+  services: [
+    ['01', 'Product development', 'Technical evaluation, pattern, sample and spec sheet — we turn your idea into a product that can be manufactured in series.'],
+    ['02', 'Pilot run', 'A first trial production, checked piece by piece — the test before scaling.'],
+    ['03', 'Uniform programme', 'Custom embroidered uniforms for teams, with real sizing and quick top-ups throughout the year.'],
+    ['04', 'Recurring production', 'Reserved production slots for the collections and regular orders of long-term clients.'],
+    ['05', 'Full-package production', 'Materials included: you receive the finished product, turnkey, sourcing handled by us.'],
+  ],
+  servicesCta: 'See all services',
+  doorsEyebrow: 'Who we produce for',
+  doorBrandTitle: 'Brands & designers',
+  doorBrandText: 'Small and medium series done properly: samples in weeks, consistent execution, and the ability to quickly repeat the products that sell.',
+  doorBrandList: ['Product development and patterns', 'Samples and pilot runs', 'Collection-based production with reserved slots'],
+  doorBrandCta: 'For brands',
+  doorBrandHref: '/en/for-brands',
+  doorUniTitle: 'Uniforms & workwear',
+  doorUniText: 'For hotels, clinics, restaurants and companies: uniforms fitted to your actual team, with embroidery and fast top-ups with every new hire.',
+  doorUniList: ['Designs adapted to your organisation', 'Embroidery with your insignia', '12-month fixed-price agreements'],
+  doorUniCta: 'For organisations',
+  doorUniHref: '/en/uniforms',
+  processEyebrow: 'How we work',
+  processTitle: 'A clear path, no surprises',
+  process: [
+    ['The conversation', 'Tell us what you want to produce: a sketch, a reference garment, or just the idea.'],
+    ['Technical evaluation', 'We confirm what can be manufactured, in what timeframe, with which materials.'],
+    ['Pattern & sample', 'We make the pattern and the sample — you approve it before any production run.'],
+    ['Written offer', 'Price, lead time and terms in writing. No ambiguity.'],
+    ['Production & control', 'We cut, sew, embroider and inspect every piece.'],
+    ['Delivery & repeat', 'We deliver on the promised date and plan your next order together.'],
+  ],
+  promiseEyebrow: 'Our commitments',
+  promiseTitle: 'Few promises. Kept.',
+  promises: [
+    ['Direct communication', 'You talk to the people actually making your order, not to a chain of intermediaries.'],
+    ['Series that fit you', 'We produce the quantities you need to grow — not the minimums imposed by large factories.'],
+    ['Lead times in writing', 'The date in the offer is the date in the calendar. We measure it on every delivery.'],
+    ['Made in the EU', 'Close to you: visit the atelier, receive samples in days, restock in weeks.'],
+  ],
+  atelierEyebrow: 'The atelier',
+  atelierTitle: 'Where ideas become garments',
+  atelierText: 'Sewing machines, cutting tables, embroidery and people who know their craft. Our door is open — come and see where and by whom your collection is made.',
+  atelierCta: 'Meet the atelier',
+  atelierHref: '/en/atelier',
+  ctaTitle: 'Ready to produce?',
+  ctaText: 'Tell us about your project — we reply with the right questions and concrete next steps.',
+  ctaBtn: 'Request a quote',
+  ctaHref: '/en/contact',
+};
+---
+
+<!-- HERO -->
+<section data-hero class="relative min-h-screen flex items-center overflow-hidden">
+  <div class="absolute inset-0 bg-[radial-gradient(120%_90%_at_70%_10%,#1a1a20_0%,#0f0f12_60%)]"></div>
+  <div data-hero-mono class="absolute right-[-8%] top-[12%] w-[46vw] max-w-[640px] opacity-0 pointer-events-none select-none">
+    <Monogram class="w-full h-auto" />
+  </div>
+  <div class="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10 pt-32 pb-24 w-full">
+    <p class="eyebrow mb-8" data-hero-fade>{t.heroEyebrow}</p>
+    <h1 class="font-display font-semibold leading-[1.04] tracking-wide text-[clamp(2.6rem,8vw,6.4rem)]">
+      <span class="line-mask"><span class="line text-ivory">{t.heroL1}</span></span>
+      <span class="line-mask"><span class="line gold-text">{t.heroL2}</span></span>
+    </h1>
+    <div data-hero-rule class="hairline !bg-none !bg-gradient-to-r from-gold/70 to-transparent w-[240px] my-9" style="background:linear-gradient(90deg,rgba(199,154,42,.7),transparent)"></div>
+    <p class="text-mist text-[1.02rem] leading-relaxed max-w-[58ch] mb-10" data-hero-fade>{t.heroSub}</p>
+    <div class="flex flex-wrap items-center gap-6" data-hero-fade>
+      <a href={t.heroCta1Href} class="btn-gold"><span>{t.heroCta1}</span></a>
+      <a href={t.heroCta2Href} class="btn-ghost">{t.heroCta2}</a>
+    </div>
+  </div>
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-[.62rem] tracking-[.3em] uppercase text-mist/60" data-hero-fade>
+    <span>{t.scroll}</span>
+    <span class="w-px h-10 bg-gradient-to-b from-gold/70 to-transparent"></span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee border-y border-ivory/8 py-5 bg-panel/60">
+  <div class="marquee-track">
+    {[0, 1].map(() => (
+      <span class="inline-flex items-center gap-16">
+        {t.marquee.map((w) => (
+          <span class="inline-flex items-center gap-16">
+            <span class="font-display text-[.8rem] tracking-[.3em] uppercase text-mist/80">{w}</span>
+            <span class="w-1.5 h-1.5 rotate-45 bg-gold/60 inline-block"></span>
+          </span>
+        ))}
+      </span>
+    ))}
+  </div>
+</div>
+
+<!-- MANIFEST -->
+<section class="py-28 lg:py-36">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center">
+    <div>
+      <SectionHead eyebrow={t.manifestEyebrow} title={t.manifestTitle} />
+      <p class="text-mist leading-relaxed mt-8 max-w-[58ch]" data-reveal>{t.manifestP1}</p>
+      <p class="text-mist leading-relaxed mt-4 max-w-[58ch]" data-reveal>{t.manifestP2}</p>
+      <div class="flex flex-wrap gap-10 mt-10" data-stagger>
+        {t.facts.map(([k, v]) => (
+          <div>
+            <p class="text-[.66rem] tracking-[.28em] uppercase text-mist/70 mb-1">{k}</p>
+            <p class="font-display font-semibold text-xl gold-text">{v}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="relative" data-reveal="zoom">
+      <PhotoSlot class="aspect-[4/5] w-full" label={t.photoLabel} />
+      <div class="absolute -bottom-6 -left-6 w-40 h-40 border border-gold/30 -z-10"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="py-28 bg-panel border-y border-ivory/8">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+    <SectionHead eyebrow={t.servicesEyebrow} title={t.servicesTitle} />
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-14" data-stagger>
+      {t.services.map(([no, title, desc]) => (
+        <div class="card p-8">
+          <p class="font-display text-sm text-gold/80 tracking-[.3em] mb-5">{no}</p>
+          <h3 class="font-display font-semibold text-lg tracking-wide text-ivory mb-3">{title}</h3>
+          <p class="text-sm text-mist leading-relaxed">{desc}</p>
+        </div>
+      ))}
+      <div class="card p-8 flex flex-col justify-between bg-gold/[.04]">
+        <p class="font-display text-3xl gold-text leading-snug">◆</p>
+        <a href={ro ? '/servicii' : '/en/services'} class="btn-ghost mt-8 self-start">{t.servicesCta}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TWO DOORS -->
+<section class="py-28 lg:py-36">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+    <SectionHead eyebrow={t.doorsEyebrow} title={ro ? 'Două publicuri, aceeași exigență' : 'Two audiences, the same standard'} center class="mb-14" />
+    <div class="grid lg:grid-cols-2 gap-6">
+      <div class="card p-10 lg:p-12" data-reveal="left">
+        <PhotoSlot class="aspect-[16/9] mb-8" label={t.photoLabel} mono={false} />
+        <h3 class="font-display font-semibold text-2xl tracking-wide text-ivory mb-4">{t.doorBrandTitle}</h3>
+        <p class="text-mist leading-relaxed mb-6">{t.doorBrandText}</p>
+        <ul class="space-y-2.5 mb-8">
+          {t.doorBrandList.map((li) => (
+            <li class="flex items-start gap-3 text-sm text-ivory/85">
+              <span class="w-1.5 h-1.5 rotate-45 bg-gold mt-1.5 shrink-0"></span>{li}
+            </li>
+          ))}
+        </ul>
+        <a href={t.doorBrandHref} class="btn-gold"><span>{t.doorBrandCta}</span></a>
+      </div>
+      <div class="card p-10 lg:p-12" data-reveal="right">
+        <PhotoSlot class="aspect-[16/9] mb-8" label={t.photoLabel} mono={false} />
+        <h3 class="font-display font-semibold text-2xl tracking-wide text-ivory mb-4">{t.doorUniTitle}</h3>
+        <p class="text-mist leading-relaxed mb-6">{t.doorUniText}</p>
+        <ul class="space-y-2.5 mb-8">
+          {t.doorUniList.map((li) => (
+            <li class="flex items-start gap-3 text-sm text-ivory/85">
+              <span class="w-1.5 h-1.5 rotate-45 bg-gold mt-1.5 shrink-0"></span>{li}
+            </li>
+          ))}
+        </ul>
+        <a href={t.doorUniHref} class="btn-gold"><span>{t.doorUniCta}</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="py-28 bg-panel border-y border-ivory/8">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+    <SectionHead eyebrow={t.processEyebrow} title={t.processTitle} />
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12 mt-14" data-stagger>
+      {t.process.map(([title, desc], i) => (
+        <div class="relative pl-6 border-l border-gold/25">
+          <p class="font-display font-semibold text-gold/90 text-sm tracking-[.24em] mb-2">{String(i + 1).padStart(2, '0')}</p>
+          <h3 class="font-display font-semibold text-lg tracking-wide text-ivory mb-2">{title}</h3>
+          <p class="text-sm text-mist leading-relaxed">{desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- PROMISES -->
+<section class="py-28 lg:py-36">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10 grid lg:grid-cols-[1fr_1.35fr] gap-16 items-start">
+    <SectionHead eyebrow={t.promiseEyebrow} title={t.promiseTitle} />
+    <div class="grid sm:grid-cols-2 gap-x-12 gap-y-10" data-stagger>
+      {t.promises.map(([title, desc]) => (
+        <div>
+          <div class="w-8 h-px bg-gold mb-4"></div>
+          <h3 class="font-display font-semibold tracking-wide text-ivory mb-2.5">{title}</h3>
+          <p class="text-sm text-mist leading-relaxed">{desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ATELIER TEASER -->
+<section class="py-28 bg-panel border-y border-ivory/8 overflow-hidden">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <div class="grid grid-cols-2 gap-4" data-reveal="left">
+        <PhotoSlot class="aspect-[3/4]" label="" />
+        <PhotoSlot class="aspect-[3/4] mt-10" label="" mono={false} />
+      </div>
+      <div data-reveal="right">
+        <SectionHead eyebrow={t.atelierEyebrow} title={t.atelierTitle} />
+        <p class="text-mist leading-relaxed mt-7 max-w-[52ch]">{t.atelierText}</p>
+        <a href={t.atelierHref} class="btn-ghost mt-9">{t.atelierCta}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-32 relative overflow-hidden">
+  <div class="absolute inset-0 bg-[radial-gradient(90%_120%_at_50%_120%,#1d1a12_0%,#0f0f12_60%)]"></div>
+  <div class="relative max-w-[900px] mx-auto px-6 text-center" data-reveal>
+    <p class="font-accent italic text-goldlight/90 text-lg mb-5">Hight Textiles</p>
+    <h2 class="font-display font-semibold text-[clamp(2rem,5vw,3.6rem)] tracking-wide text-ivory mb-6">{t.ctaTitle}</h2>
+    <p class="text-mist max-w-[52ch] mx-auto mb-10">{t.ctaText}</p>
+    <a href={t.ctaHref} class="btn-gold"><span>{t.ctaBtn}</span></a>
+  </div>
+</section>

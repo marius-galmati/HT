@@ -1,0 +1,15 @@
+---
+interface Props { lang: 'ro' | 'en'; title?: string; text?: string }
+const { lang, title, text } = Astro.props;
+const ro = lang === 'ro';
+const T = title ?? (ro ? 'Hai să discutăm proiectul tău' : 'Let’s talk about your project');
+const X = text ?? (ro ? 'Scrie-ne ce vrei să produci — revenim cu întrebările potrivite și pașii concreți.' : 'Tell us what you want to produce — we come back with the right questions and concrete next steps.');
+---
+<section class="py-28 relative overflow-hidden border-t border-ivory/8">
+  <div class="absolute inset-0 bg-[radial-gradient(90%_120%_at_50%_130%,#1d1a12_0%,#0f0f12_60%)]"></div>
+  <div class="relative max-w-[820px] mx-auto px-6 text-center" data-reveal>
+    <h2 class="font-display font-semibold text-[clamp(1.8rem,4vw,2.8rem)] tracking-wide text-ivory mb-5">{T}</h2>
+    <p class="text-mist max-w-[52ch] mx-auto mb-9">{X}</p>
+    <a href={ro ? '/contact' : '/en/contact'} class="btn-gold"><span>{ro ? 'Cere ofertă' : 'Request a quote'}</span></a>
+  </div>
+</section>

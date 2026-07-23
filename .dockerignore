@@ -1,0 +1,8 @@
+node_modules
+dist
+.astro
+preview
+.claude
+.git
+*.md
+shot.js

@@ -1,0 +1,87 @@
+---
+import PageHero from '../PageHero.astro';
+
+interface Props { lang: 'ro' | 'en' }
+const { lang } = Astro.props;
+const ro = lang === 'ro';
+
+const t = ro ? {
+  eyebrow: 'Contact', title: 'Cere o ofertă',
+  sub: 'Spune-ne ce vrei să produci. Cu cât știm mai multe de la început — produs, cantitate, termen — cu atât primești mai repede un răspuns concret.',
+  fName: 'Nume și prenume', fCompany: 'Companie / brand', fEmail: 'E-mail', fPhone: 'Telefon',
+  fType: 'Ce vrei să produci?', fTypes: ['Colecție pentru brand / designer', 'Uniforme & echipamente de lucru', 'Produs personalizat / broderie', 'Altceva — descriu mai jos'],
+  fQty: 'Cantitate estimată', fQtys: ['Sub 50 de bucăți', '50 – 200 de bucăți', '200 – 1.000 de bucăți', 'Peste 1.000 de bucăți', 'Nu știu încă'],
+  fMsg: 'Descrie proiectul',
+  fMsgPh: 'Produsul, materialele dorite, termenul, orice detaliu care ne ajută să înțelegem proiectul…',
+  submit: 'Trimite cererea',
+  note: 'Răspundem în aceeași zi lucrătoare. Datele tale rămân confidențiale și nu sunt transmise nimănui.',
+  altTitle: 'Preferi direct?',
+  altText: 'Programează o vizită la atelier, în Cluj-Napoca — adu produsul sau ideea și discutăm aplicat.',
+  hours: 'Luni – Vineri, 08:00 – 17:00',
+} : {
+  eyebrow: 'Contact', title: 'Request a quote',
+  sub: 'Tell us what you want to produce. The more we know from the start — product, quantity, timeline — the faster you receive a concrete answer.',
+  fName: 'Full name', fCompany: 'Company / brand', fEmail: 'E-mail', fPhone: 'Phone',
+  fType: 'What do you want to produce?', fTypes: ['A brand / designer collection', 'Uniforms & workwear', 'Personalised product / embroidery', 'Something else — described below'],
+  fQty: 'Estimated quantity', fQtys: ['Under 50 pieces', '50 – 200 pieces', '200 – 1,000 pieces', 'Over 1,000 pieces', 'Not sure yet'],
+  fMsg: 'Describe the project',
+  fMsgPh: 'The product, preferred materials, timeline, anything that helps us understand the project…',
+  submit: 'Send the request',
+  note: 'We reply within the same business day. Your details remain confidential and are never shared.',
+  altTitle: 'Prefer to talk in person?',
+  altText: 'Book a visit to the atelier in Cluj-Napoca — bring your product or idea and let us talk specifics.',
+  hours: 'Monday – Friday, 08:00 – 17:00 (EET)',
+};
+---
+<PageHero eyebrow={t.eyebrow} title={t.title} sub={t.sub} />
+
+<section class="py-16 pb-28">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10 grid lg:grid-cols-[1.5fr_1fr] gap-14 items-start">
+    <!-- FORM: conectați endpoint-ul real (Formspree/serverless) înainte de lansare -->
+    <form class="card p-9 lg:p-12 space-y-7" method="POST" action="#" data-reveal>
+      <div class="grid sm:grid-cols-2 gap-7">
+        <div><label class="flabel" for="name">{t.fName}</label><input class="field" id="name" name="name" required /></div>
+        <div><label class="flabel" for="company">{t.fCompany}</label><input class="field" id="company" name="company" /></div>
+        <div><label class="flabel" for="email">{t.fEmail}</label><input class="field" id="email" name="email" type="email" required /></div>
+        <div><label class="flabel" for="phone">{t.fPhone}</label><input class="field" id="phone" name="phone" /></div>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-7">
+        <div>
+          <label class="flabel" for="type">{t.fType}</label>
+          <select class="field" id="type" name="type">{t.fTypes.map((o) => <option>{o}</option>)}</select>
+        </div>
+        <div>
+          <label class="flabel" for="qty">{t.fQty}</label>
+          <select class="field" id="qty" name="qty">{t.fQtys.map((o) => <option>{o}</option>)}</select>
+        </div>
+      </div>
+      <div>
+        <label class="flabel" for="msg">{t.fMsg}</label>
+        <textarea class="field min-h-[150px]" id="msg" name="message" placeholder={t.fMsgPh} required></textarea>
+      </div>
+      <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" />
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+        <button type="submit" class="btn-gold"><span>{t.submit}</span></button>
+        <p class="text-xs text-mist/80 leading-relaxed max-w-[40ch]">{t.note}</p>
+      </div>
+    </form>
+
+    <aside class="space-y-6" data-reveal="right">
+      <div class="card p-8">
+        <p class="eyebrow mb-4">{t.altTitle}</p>
+        <p class="text-mist text-sm leading-relaxed mb-6">{t.altText}</p>
+        <ul class="space-y-3 text-sm text-ivory/85">
+          <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 rotate-45 bg-gold shrink-0"></span>Cluj-Napoca, România</li>
+          <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 rotate-45 bg-gold shrink-0"></span>{t.hours}</li>
+        </ul>
+      </div>
+      <div class="card p-8 bg-gold/[.04]">
+        <p class="font-accent italic text-lg text-ivory/90 leading-relaxed">
+          {ro
+            ? '„Cu cât ne scrii mai devreme, cu atât calendarul de producție are mai mult loc pentru proiectul tău."'
+            : '“The earlier you write, the more room the production calendar has for your project.”'}
+        </p>
+      </div>
+    </aside>
+  </div>
+</section>

@@ -1,0 +1,114 @@
+---
+import PageHero from '../PageHero.astro';
+import CtaBand from '../CtaBand.astro';
+import SectionHead from '../SectionHead.astro';
+import PhotoSlot from '../PhotoSlot.astro';
+
+interface Props { lang: 'ro' | 'en' }
+const { lang } = Astro.props;
+const ro = lang === 'ro';
+
+const t = ro ? {
+  eyebrow: 'Uniforme & echipamente de lucru', title: 'Echipa ta, îmbrăcată impecabil',
+  sub: 'Uniforme personalizate pentru hoteluri, restaurante, clinici, saloane, magazine și companii — croite pe mărimile echipei reale, brodate cu însemnele tale și completate rapid ori de câte ori angajezi oameni noi.',
+  whoTitle: 'Pentru cine',
+  who: [
+    ['Ospitalitate', 'Recepție, restaurant, bar, housekeeping, spa — imaginea coerentă pe care oaspeții o rețin.'],
+    ['Clinici & saloane', 'Halate și ținute profesionale în care echipa arată la fel de îngrijit ca serviciul oferit.'],
+    ['Retail & servicii', 'Personal ușor de recunoscut, o imagine de brand purtată zi de zi.'],
+    ['Birouri & evenimente', 'Ținute corporate și articole personalizate pentru echipe și ocazii speciale.'],
+  ],
+  whyTitle: 'De ce un program, nu doar o comandă',
+  why: [
+    ['Mărimi pe echipa reală', 'Nu cataloage cu mărimi „universale": luăm măsurile pe oamenii tăi, iar uniformele chiar li se potrivesc.'],
+    ['Broderie de calitate', 'Însemnele companiei, brodate curat și durabil — nu imprimeuri care se decojesc la a treia spălare.'],
+    ['Completări rapide', 'Angajezi pe cineva în martie? Primește uniforma în zile, identică cu ale colegilor — păstrăm tiparele și specificațiile tale.'],
+    ['Prețuri stabile prin contract', 'Contract-cadru cu prețuri valabile 12 luni: bugetezi o singură dată, comanzi de câte ori ai nevoie.'],
+  ],
+  stepsTitle: 'Cum pornim',
+  steps: [
+    ['Discuția', 'Ne spui câți oameni ai, ce roluri și ce imagine vrei să transmită.'],
+    ['Propunerea', 'Îți prezentăm modele adaptate organizației și o mostră înainte de serie.'],
+    ['Măsurile', 'Luăm mărimile pe echipă — la voi sau la atelier.'],
+    ['Livrarea & programul', 'Livrăm seria completă și rămânem partenerul tău pentru completări, tot anul.'],
+  ],
+  photoLabel: 'Fotografie uniforme · în curând',
+} : {
+  eyebrow: 'Uniforms & workwear', title: 'Your team, impeccably dressed',
+  sub: 'Custom uniforms for hotels, restaurants, clinics, salons, retail and companies — fitted to your actual team, embroidered with your insignia, and topped up quickly whenever you hire.',
+  whoTitle: 'Who it is for',
+  who: [
+    ['Hospitality', 'Reception, restaurant, bar, housekeeping, spa — the coherent image guests remember.'],
+    ['Clinics & salons', 'Professional attire in which the team looks as polished as the service.'],
+    ['Retail & services', 'Easily recognisable staff, a brand image worn every day.'],
+    ['Offices & events', 'Corporate outfits and personalised garments for teams and special occasions.'],
+  ],
+  whyTitle: 'Why a programme, not just an order',
+  why: [
+    ['Sizing on your actual team', 'No "one size fits most" catalogues: we measure your people, and the uniforms actually fit.'],
+    ['Quality embroidery', 'Your insignia embroidered cleanly and durably — not prints that peel after three washes.'],
+    ['Fast top-ups', 'Hiring in March? The new colleague gets an identical uniform within days — we keep your patterns and specifications on file.'],
+    ['Stable prices under contract', 'Framework agreement with 12-month prices: budget once, order whenever you need.'],
+  ],
+  stepsTitle: 'How we start',
+  steps: [
+    ['The conversation', 'Tell us how many people, which roles, and what image you want to convey.'],
+    ['The proposal', 'We present designs adapted to your organisation and a sample before production.'],
+    ['The measurements', 'We take sizes on your team — at your premises or at the atelier.'],
+    ['Delivery & the programme', 'We deliver the full series and remain your partner for top-ups, all year round.'],
+  ],
+  photoLabel: 'Uniform photography · coming soon',
+};
+---
+<PageHero eyebrow={t.eyebrow} title={t.title} sub={t.sub} />
+
+<section class="py-20">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+    <SectionHead eyebrow={t.whoTitle} title={ro ? 'Domeniile pe care le îmbrăcăm' : 'The sectors we dress'} />
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mt-12" data-stagger>
+      {t.who.map(([p, s]) => (
+        <div class="card p-7">
+          <h3 class="font-display font-semibold tracking-wide text-ivory mb-3">{p}</h3>
+          <p class="text-sm text-mist leading-relaxed">{s}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="py-24 bg-panel border-y border-ivory/8">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10 grid lg:grid-cols-[1fr_1.25fr] gap-14 items-center">
+    <div data-reveal="left">
+      <PhotoSlot class="aspect-[3/4]" label={t.photoLabel} />
+    </div>
+    <div>
+      <SectionHead eyebrow={t.whyTitle} title={ro ? 'Diferența se vede în detalii' : 'The difference is in the details'} />
+      <div class="mt-10 grid sm:grid-cols-2 gap-x-10 gap-y-8" data-stagger>
+        {t.why.map(([p, s]) => (
+          <div>
+            <div class="w-8 h-px bg-gold mb-3.5"></div>
+            <h3 class="font-display font-semibold tracking-wide text-ivory mb-2">{p}</h3>
+            <p class="text-sm text-mist leading-relaxed">{s}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-24">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10">
+    <SectionHead eyebrow={t.stepsTitle} title={ro ? 'Patru pași până la prima livrare' : 'Four steps to the first delivery'} center class="mb-14" />
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8" data-stagger>
+      {t.steps.map(([p, s], i) => (
+        <div class="relative pl-6 border-l border-gold/25">
+          <p class="font-display font-semibold text-gold/90 text-sm tracking-[.24em] mb-2">{String(i + 1).padStart(2, '0')}</p>
+          <h3 class="font-display font-semibold tracking-wide text-ivory mb-2">{p}</h3>
+          <p class="text-sm text-mist leading-relaxed">{s}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<CtaBand lang={lang} title={ro ? 'Câți oameni are echipa ta?' : 'How big is your team?'} text={ro ? 'Spune-ne domeniul și numărul de angajați — revenim cu o propunere de program și pașii pentru mostre.' : 'Tell us your sector and team size — we come back with a programme proposal and the sampling steps.'} />

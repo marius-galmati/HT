@@ -1,0 +1,117 @@
+---
+import PageHero from '../PageHero.astro';
+import CtaBand from '../CtaBand.astro';
+import SectionHead from '../SectionHead.astro';
+
+interface Props { lang: 'ro' | 'en' }
+const { lang } = Astro.props;
+const ro = lang === 'ro';
+
+const t = ro ? {
+  eyebrow: 'Servicii', title: 'Cinci pachete, un singur standard',
+  sub: 'Fiecare pachet are un conținut clar, un mod de plată clar și un rezultat concret. Începi cu ce ai — o schiță, o mostră sau doar o idee — și alegi cât de departe mergem împreună.',
+  items: [
+    { no: '01', name: 'Dezvoltare de produs',
+      desc: 'Transformăm ideea într-un produs care se poate fabrica în serie: evaluăm tehnic modelul, realizăm sau ajustăm tiparul, producem o mostră cu o rundă de modificări și predăm fișa tehnică — documentul care descrie exact cum se confecționează produsul.',
+      for: 'Pentru branduri și designeri cu produse noi, sau organizații care vor uniforme după model propriu.',
+      pay: 'Tarif fix pe model, achitat în avans; o parte se scade din prima comandă de serie.' },
+    { no: '02', name: 'Serie-pilot',
+      desc: 'Prima producție de probă, în cantitatea minimă pe care o putem realiza profitabil, verificată bucată cu bucată, cu raport de producție la final. Pilotul este testul practic — al produsului și al colaborării — înainte de scalare.',
+      for: 'Pentru clienți cu mostra aprobată, care testează piața sau ne testează pe noi.',
+      pay: 'Preț pe bucată; avans la lansare, diferența înainte de livrare.' },
+    { no: '03', name: 'Program de uniforme',
+      desc: 'Uniforme și echipamente de lucru personalizate: modele adaptate organizației, broderie cu însemnele ei, mărimi luate pe echipa reală și completări rapide pe parcursul anului, la angajări și înlocuiri.',
+      for: 'Pentru hoteluri, restaurante, clinici, saloane, magazine și firme de servicii.',
+      pay: 'Contract-cadru cu prețuri stabile 12 luni; avans la fiecare comandă.' },
+    { no: '04', name: 'Producție recurentă',
+      desc: 'Calendar de producție rezervat pentru colecțiile sau comenzile regulate ale clientului: prioritate la planificare, prețuri stabile și un partener care îți cunoaște deja produsele.',
+      for: 'Pentru branduri cu colecții regulate și clienți deveniți constanți.',
+      pay: 'Contract pe 6–12 luni, cu plan de comenzi și avansuri pe fiecare tranșă.' },
+    { no: '05', name: 'Producție completă, cu materiale incluse',
+      desc: 'Pe lângă manoperă, ne ocupăm și de procurarea țesăturilor și accesoriilor. Primești produsul finit, la cheie, fără să gestionezi furnizori de materiale.',
+      for: 'Pentru clienți care preferă un singur partener responsabil de tot.',
+      pay: 'Avans care acoperă integral materialele înainte de croire.' },
+  ],
+  forLabel: 'Cui se adresează', payLabel: 'Cum se plătește',
+  alsoTitle: 'În plus, în atelier',
+  also: ['Broderie și personalizare', 'Retușuri și ajustări', 'Plisare', 'Ambalare și pregătire pentru livrare'],
+  honestTitle: 'Un principiu la care ținem',
+  honest: 'Mostrele și munca tehnică se plătesc — pentru că le realizează cei mai experimentați oameni din atelier, iar seriozitatea lor este exact ceea ce cumperi. Clienții care ajung la producția de serie primesc o parte din costul dezvoltării înapoi, ca reducere din prima comandă.',
+} : {
+  eyebrow: 'Services', title: 'Five packages, one standard',
+  sub: 'Each package has clear contents, clear payment terms and a concrete deliverable. You start with what you have — a sketch, a reference garment or just an idea — and choose how far we go together.',
+  items: [
+    { no: '01', name: 'Product development',
+      desc: 'We turn your idea into a manufacturable product: technical evaluation, pattern making or adjustment, one sample with a revision round, and the spec sheet — the document describing exactly how the garment is made.',
+      for: 'For brands and designers with new products, or organisations wanting uniforms to their own design.',
+      pay: 'Fixed fee per style, paid upfront; part of it is deducted from your first production order.' },
+    { no: '02', name: 'Pilot run',
+      desc: 'A first trial production at the minimum quantity we can produce profitably, inspected piece by piece, with a production report at the end. The pilot is the practical test — of the product and of the collaboration — before scaling.',
+      for: 'For clients with an approved sample, testing the market or testing us.',
+      pay: 'Price per piece; deposit at launch, balance before delivery.' },
+    { no: '03', name: 'Uniform programme',
+      desc: 'Custom uniforms and workwear: designs adapted to your organisation, embroidery with your insignia, sizing taken on your actual team, and fast top-ups throughout the year as people join.',
+      for: 'For hotels, restaurants, clinics, salons, retail and service companies.',
+      pay: 'Framework agreement with 12-month fixed prices; deposit on each order.' },
+    { no: '04', name: 'Recurring production',
+      desc: 'Reserved production slots for your collections or regular orders: planning priority, stable prices and a partner who already knows your products.',
+      for: 'For brands with regular collections and long-term clients.',
+      pay: '6–12 month agreement with an order plan and staged deposits.' },
+    { no: '05', name: 'Full-package production',
+      desc: 'Beyond manufacturing, we also source fabrics and trims. You receive the finished product, turnkey, without managing material suppliers.',
+      for: 'For clients who prefer a single partner responsible for everything.',
+      pay: 'Deposit covering materials in full before cutting.' },
+  ],
+  forLabel: 'Who it is for', payLabel: 'How it is paid',
+  alsoTitle: 'Also in the atelier',
+  also: ['Embroidery and personalisation', 'Alterations and adjustments', 'Pleating', 'Packing and delivery preparation'],
+  honestTitle: 'A principle we hold',
+  honest: 'Samples and technical work are paid services — they are made by the most experienced people in the atelier, and their diligence is exactly what you are buying. Clients who move on to series production get part of the development cost back as a discount on the first order.',
+};
+---
+<PageHero eyebrow={t.eyebrow} title={t.title} sub={t.sub} />
+
+<section class="py-20">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10 space-y-6">
+    {t.items.map((s) => (
+      <article class="card p-9 lg:p-12 grid lg:grid-cols-[100px_1.6fr_1fr] gap-8" data-reveal>
+        <p class="font-display font-semibold text-2xl gold-text">{s.no}</p>
+        <div>
+          <h2 class="font-display font-semibold text-xl lg:text-2xl tracking-wide text-ivory mb-4">{s.name}</h2>
+          <p class="text-mist leading-relaxed text-[.95rem]">{s.desc}</p>
+        </div>
+        <div class="space-y-5 lg:border-l lg:border-ivory/10 lg:pl-8">
+          <div>
+            <p class="text-[.64rem] tracking-[.26em] uppercase text-gold mb-1.5">{t.forLabel}</p>
+            <p class="text-sm text-ivory/85 leading-relaxed">{s.for}</p>
+          </div>
+          <div>
+            <p class="text-[.64rem] tracking-[.26em] uppercase text-gold mb-1.5">{t.payLabel}</p>
+            <p class="text-sm text-ivory/85 leading-relaxed">{s.pay}</p>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<section class="py-20 bg-panel border-y border-ivory/8">
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-14 items-start">
+    <div data-reveal>
+      <SectionHead eyebrow={t.alsoTitle} title={ro ? 'Servicii de atelier' : 'Atelier services'} />
+      <ul class="mt-8 space-y-3" data-stagger>
+        {t.also.map((a) => (
+          <li class="flex items-center gap-3 text-ivory/85">
+            <span class="w-1.5 h-1.5 rotate-45 bg-gold shrink-0"></span>{a}
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="card p-9" data-reveal>
+      <p class="eyebrow mb-4">{t.honestTitle}</p>
+      <p class="text-mist leading-relaxed">{t.honest}</p>
+    </div>
+  </div>
+</section>
+
+<CtaBand lang={lang} />

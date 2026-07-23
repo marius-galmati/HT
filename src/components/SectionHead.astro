@@ -1,0 +1,8 @@
+---
+interface Props { eyebrow: string; title: string; class?: string; center?: boolean }
+const { eyebrow, title, class: cls = '', center = false } = Astro.props;
+---
+<div class={`${center ? 'text-center' : ''} ${cls}`} data-reveal>
+  <p class={`eyebrow mb-5 ${center ? 'justify-center before:hidden' : ''}`}>{eyebrow}</p>
+  <h2 class="font-display font-semibold text-[clamp(1.7rem,3.6vw,2.9rem)] leading-[1.18] tracking-wide text-ivory max-w-[24ch]" style={center ? 'margin-inline:auto' : ''}>{title}</h2>
+</div>

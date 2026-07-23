@@ -1,0 +1,9 @@
+---
+import Monogram from './Monogram.astro';
+interface Props { class?: string; label?: string; mono?: boolean }
+const { class: cls = 'aspect-[4/3]', label = '', mono = true } = Astro.props;
+---
+<div class={`weave ${cls}`}>
+  {mono && <div class="absolute inset-0 flex items-center justify-center opacity-[.16]"><Monogram class="w-1/3 h-1/3" /></div>}
+  {label && <span class="photo-note">{label}</span>}
+</div>

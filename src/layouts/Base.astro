@@ -1,0 +1,164 @@
+---
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import Monogram from '../components/Monogram.astro';
+
+interface Props {
+  lang: 'ro' | 'en';
+  title: string;
+  description: string;
+  path: string;      // current path, e.g. "/servicii"
+  alt: string;       // counterpart path in the other language
+  home?: boolean;
+}
+const { lang, title, description, path, alt, home = false } = Astro.props;
+const other = lang === 'ro' ? 'en' : 'ro';
+const site = 'https://hightextiles.ro';
+
+const nav = lang === 'ro'
+  ? [
+      { href: '/', label: 'Acasă' },
+      { href: '/servicii', label: 'Servicii' },
+      { href: '/branduri', label: 'Pentru branduri' },
+      { href: '/uniforme', label: 'Uniforme' },
+      { href: '/atelier', label: 'Atelierul' },
+      { href: '/contact', label: 'Contact' },
+    ]
+  : [
+      { href: '/en/', label: 'Home' },
+      { href: '/en/services', label: 'Services' },
+      { href: '/en/for-brands', label: 'For brands' },
+      { href: '/en/uniforms', label: 'Uniforms' },
+      { href: '/en/atelier', label: 'The atelier' },
+      { href: '/en/contact', label: 'Contact' },
+    ];
+const cta = lang === 'ro' ? { href: '/contact', label: 'Cere ofertă' } : { href: '/en/contact', label: 'Request a quote' };
+const isActive = (href: string) => href === path || (href !== '/' && href !== '/en/' && path.startsWith(href));
+---
+<!doctype html>
+<html lang={lang}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={site + path} />
+  <link rel="alternate" hreflang={lang} href={site + path} />
+  <link rel="alternate" hreflang={other} href={site + alt} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={site + path} />
+  <meta name="theme-color" content="#0f0f12" />
+  {home && (
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'Hight Textiles SRL',
+      url: site,
+      foundingDate: '2022',
+      address: { '@type': 'PostalAddress', addressLocality: 'Cluj-Napoca', addressCountry: 'RO' },
+      description: lang === 'ro'
+        ? 'Producător de confecții la comandă, în serii mici și medii: dezvoltare de produs, mostre, croit, cusut, broderie, control de calitate.'
+        : 'Made-to-order garment manufacturer in Romania (EU): product development, sampling, small-series production, embroidery, quality control.',
+    })} />
+  )}
+  <ClientRouter />
+</head>
+<body class="grain">
+  <!-- NAV -->
+  <header id="nav" class="fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-10 h-[76px] flex items-center gap-8">
+      <a href={lang === 'ro' ? '/' : '/en/'} class="flex items-center gap-3 shrink-0">
+        <Monogram class="w-9 h-9" />
+        <span class="font-display font-semibold tracking-[.24em] text-[.92rem] gold-text">HIGHT&nbsp;TEXTILES</span>
+      </a>
+      <nav class="hidden lg:flex items-center gap-7 ml-auto">
+        {nav.map((n) => (
+          <a href={n.href} class={`nav-link ${isActive(n.href) ? 'active' : ''}`}>{n.label}</a>
+        ))}
+      </nav>
+      <div class="hidden lg:flex items-center gap-6">
+        <a href={alt} class="nav-link" aria-label={other === 'en' ? 'English version' : 'Versiunea în română'}>{other.toUpperCase()}</a>
+        <a href={cta.href} class="btn-gold !py-2.5 !px-5"><span>{cta.label}</span></a>
+      </div>
+      <button id="menu-btn" class="lg:hidden ml-auto flex flex-col gap-[6px] p-2" aria-label="Meniu">
+        <span class="w-6 h-px bg-ivory block"></span>
+        <span class="w-6 h-px bg-ivory block"></span>
+        <span class="w-4 h-px bg-gold block"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE MENU -->
+  <div id="menu" class="fixed inset-0 z-40 bg-night/95 backdrop-blur-lg hidden lg:hidden">
+    <div class="h-full flex flex-col items-center justify-center gap-7">
+      {nav.map((n) => (
+        <a href={n.href} class="font-display text-2xl tracking-[.18em] text-ivory">{n.label}</a>
+      ))}
+      <a href={alt} class="nav-link mt-2">{other === 'en' ? 'ENGLISH' : 'ROMÂNĂ'}</a>
+      <a href={cta.href} class="btn-gold mt-4"><span>{cta.label}</span></a>
+    </div>
+  </div>
+
+  <main>
+    <slot />
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-ivory/10 bg-panel">
+    <div class="max-w-[1400px] mx-auto px-6 lg:px-10 py-16">
+      <div class="grid lg:grid-cols-[1.4fr_1fr_1fr] gap-12">
+        <div>
+          <div class="flex items-center gap-3 mb-5">
+            <Monogram class="w-10 h-10" />
+            <span class="font-display font-semibold tracking-[.24em] gold-text">HIGHT&nbsp;TEXTILES</span>
+          </div>
+          <p class="text-mist text-sm leading-relaxed max-w-[42ch]">
+            {lang === 'ro'
+              ? 'Manufactură de confecții din Cluj-Napoca. Dezvoltăm și producem îmbrăcăminte la comandă, în serii mici și medii, pentru branduri, designeri și organizații din România și Uniunea Europeană.'
+              : 'Garment manufacturer in Cluj-Napoca, Romania. We develop and produce made-to-order clothing in small and medium series for brands, designers and organisations across the EU.'}
+          </p>
+        </div>
+        <div>
+          <p class="eyebrow mb-5">{lang === 'ro' ? 'Navigare' : 'Navigate'}</p>
+          <ul class="space-y-3">
+            {nav.slice(1).map((n) => (
+              <li><a href={n.href} class="text-sm text-mist hover:text-goldlight transition-colors tracking-wide">{n.label}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <p class="eyebrow mb-5">{lang === 'ro' ? 'Contact' : 'Contact'}</p>
+          <ul class="space-y-3 text-sm text-mist">
+            <li>Cluj-Napoca, România</li>
+            <li>{lang === 'ro' ? 'Luni – Vineri, 08:00 – 17:00' : 'Monday – Friday, 08:00 – 17:00 (EET)'}</li>
+            <li><a href={cta.href} class="text-goldlight hover:text-ivory transition-colors">{cta.label} →</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="hairline my-10"></div>
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-mist/70 tracking-[.14em] uppercase">
+        <span>© 2026 Hight Textiles SRL</span>
+        <span>{lang === 'ro' ? 'Confecții produse în România · Uniunea Europeană' : 'Garments made in Romania · European Union'}</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    import '../scripts/anim.js';
+  </script>
+  <script is:inline>
+    document.addEventListener('astro:page-load', () => {
+      const btn = document.getElementById('menu-btn');
+      const menu = document.getElementById('menu');
+      if (btn && menu && !btn.dataset.bound) {
+        btn.dataset.bound = '1';
+        btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+        menu.addEventListener('click', (e) => { if (e.target.tagName === 'A') menu.classList.add('hidden'); });
+      }
+    });
+  </script>
+</body>
+</html>

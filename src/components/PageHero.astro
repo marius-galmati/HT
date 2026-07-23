@@ -1,0 +1,19 @@
+---
+import Monogram from './Monogram.astro';
+interface Props { eyebrow: string; title: string; sub?: string }
+const { eyebrow, title, sub = '' } = Astro.props;
+---
+<section data-hero class="relative pt-44 pb-20 overflow-hidden">
+  <div class="absolute inset-0 bg-[radial-gradient(110%_100%_at_80%_0%,#1a1a20_0%,#0f0f12_60%)]"></div>
+  <div data-hero-mono class="absolute right-[-6%] top-[-10%] w-[34vw] max-w-[460px] opacity-0 pointer-events-none select-none">
+    <Monogram class="w-full h-auto" />
+  </div>
+  <div class="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-10">
+    <p class="eyebrow mb-7" data-hero-fade>{eyebrow}</p>
+    <h1 class="font-display font-semibold leading-[1.08] tracking-wide text-[clamp(2.2rem,5.4vw,4.2rem)]">
+      <span class="line-mask"><span class="line text-ivory">{title}</span></span>
+    </h1>
+    <div data-hero-rule class="w-[200px] h-px my-8" style="background:linear-gradient(90deg,rgba(199,154,42,.7),transparent)"></div>
+    {sub && <p class="text-mist text-[1.02rem] leading-relaxed max-w-[62ch]" data-hero-fade>{sub}</p>}
+  </div>
+</section>
